@@ -1,7 +1,6 @@
 # react-native-turbo-sse
 
 [![npm version](https://img.shields.io/npm/v/react-native-turbo-sse.svg?style=flat-square)](https://www.npmjs.com/package/react-native-turbo-sse)
-[![npm downloads](https://img.shields.io/npm/dm/react-native-turbo-sse.svg?style=flat-square)](https://www.npmjs.com/package/react-native-turbo-sse)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 A blazing fast, production-ready **Server-Sent Events (SSE)** and **EventSource** library for React Native, built specifically for the **New Architecture (Turbo Modules)** using Nitrogen and JSI.
