@@ -111,7 +111,7 @@ source.connect();
 
 ---
 
-## Exposed API Methods
+## API Methods
 
 The `TurboEventSource` class gives you full manual control over the stream:
 
