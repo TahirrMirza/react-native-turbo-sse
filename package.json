@@ -92,7 +92,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^21.0.2",
     "@eslint/compat": "^2.1.0",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
@@ -103,7 +102,6 @@
     "@react-native/jest-preset": "0.85.0",
     "@release-it/conventional-changelog": "^11.0.1",
     "@types/react": "^19.2.0",
-    "commitlint": "^21.0.2",
     "del-cli": "^7.0.0",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
@@ -112,7 +110,6 @@
     "eslint-plugin-prettier": "^5.5.6",
     "expo-module-scripts": "^3.0.0",
     "jest": "^29.7.0",
-    "lefthook": "^2.1.9",
     "nitrogen": "^0.35.3",
     "prettier": "^3.8.3",
     "react": "19.2.3",
@@ -179,11 +176,6 @@
       "<rootDir>/lib/"
     ]
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
   "release-it": {
     "git": {
       "commitMessage": "chore: release ${version}",
@@ -209,7 +201,6 @@
     "tools": [
       "eslint",
       "jest",
-      "lefthook",
       "release-it",
       "vite"
     ],

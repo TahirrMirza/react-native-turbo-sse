@@ -178,6 +178,7 @@ The `TurboEventSource` class gives you full manual control over the stream:
 - `removeAllEventListeners()`: Removes all active event listeners.
 - `connectTimeoutMs` (Optional Number): Milliseconds to wait to establish the native TCP connection (Android only).
 - `readTimeoutMs` (Optional Number): Milliseconds to wait between incoming chunks before terminating a dead connection. On iOS, this also dictates the initial connection timeout.
+- `debug` (Optional Boolean): Enables detailed console logs for debugging the stream lifecycle.
 
 _Note: We intentionally do not auto-reconnect failed streams under the hood. For modern LLM streaming applications, automatically resuming a dropped connection with a `Last-Event-ID` often causes context loss on the server. You have full control to catch the error and reconnect if needed._
 
