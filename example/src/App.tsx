@@ -8,7 +8,7 @@ import {
   ScrollView,
   type TextInputProps,
 } from 'react-native';
-import { ReadyState, useTurboSSE } from 'react-native-turbo-sse';
+import { ReadyState, useFastSSE } from 'react-native-fast-sse';
 import Animated, {
   useSharedValue,
   useAnimatedProps,
@@ -31,7 +31,7 @@ export default function App() {
     }
   );
 
-  const { data, status, error, connect, disconnect } = useTurboSSE(url, {
+  const { data, status, error, connect, disconnect } = useFastSSE(url, {
     method: 'GET',
     debug: true,
   });

@@ -1,7 +1,7 @@
 import Foundation
 
-class TurboSse: HybridTurboSseSpec {
-    private var sessionDelegate: TurboSseSessionDelegate?
+class FastSse: HybridFastSseSpec {
+    private var sessionDelegate: FastSseSessionDelegate?
     private var session: URLSession?
     private var dataTask: URLSessionDataTask?
     private var sseParser: SSEParser?
@@ -48,7 +48,7 @@ class TurboSse: HybridTurboSseSpec {
         // Since SSE is a long-lived stream, we must set this to infinity.
         config.timeoutIntervalForResource = .infinity
         
-        self.sessionDelegate = TurboSseSessionDelegate(turboSse: self)
+        self.sessionDelegate = FastSseSessionDelegate(fastSse: self)
         session = URLSession(configuration: config, delegate: self.sessionDelegate, delegateQueue: nil)
         dataTask = session?.dataTask(with: request)
         
@@ -131,22 +131,22 @@ class TurboSse: HybridTurboSseSpec {
     }
 }
 
-class TurboSseSessionDelegate: NSObject, URLSessionDataDelegate {
-    weak var turboSse: TurboSse?
+class FastSseSessionDelegate: NSObject, URLSessionDataDelegate {
+    weak var fastSse: FastSse?
     
-    init(turboSse: TurboSse) {
-        self.turboSse = turboSse
+    init(fastSse: FastSse) {
+        self.fastSse = fastSse
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-        turboSse?.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
+        fastSse?.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
     }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        turboSse?.urlSession(session, dataTask: dataTask, didReceive: data)
+        fastSse?.urlSession(session, dataTask: dataTask, didReceive: data)
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        turboSse?.urlSession(session, task: task, didCompleteWithError: error)
+        fastSse?.urlSession(session, task: task, didCompleteWithError: error)
     }
 }

@@ -4,7 +4,7 @@ export interface SSEEvent {
   data: string;
 }
 
-export interface TurboSSEOptions {
+export interface FastSSEOptions {
   /** The HTTP Method to use. Defaults to 'GET'. */
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   /** Optional HTTP headers to include in the request. */

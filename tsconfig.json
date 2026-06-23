@@ -2,12 +2,12 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-turbo-sse": ["./src/index"]
+      "react-native-fast-sse": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "customConditions": [
-      "react-native-turbo-sse-source",
+      "react-native-fast-sse-source",
       "react-native-strict-api"
     ],
     "esModuleInterop": true,

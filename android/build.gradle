@@ -1,5 +1,5 @@
 buildscript {
-  ext.TurboSse = [
+  ext.FastSse = [
     kotlinVersion: "2.0.21",
     minSdkVersion: 24,
     compileSdkVersion: 36
@@ -10,7 +10,7 @@ buildscript {
       return rootProject.ext.get(prop)
     }
 
-    return TurboSse[prop]
+    return FastSse[prop]
   }
 
   repositories {
@@ -32,12 +32,12 @@ def reactNativeArchitectures() {
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
-apply from: '../nitrogen/generated/android/turbosse+autolinking.gradle'
+apply from: '../nitrogen/generated/android/fastsse+autolinking.gradle'
 
 apply plugin: "com.facebook.react"
 
 android {
-  namespace "com.margelo.nitro.turbosse"
+  namespace "com.margelo.nitro.fastsse"
 
   compileSdkVersion getExtOrDefault("compileSdkVersion")
 

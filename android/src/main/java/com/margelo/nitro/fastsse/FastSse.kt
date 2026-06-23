@@ -1,4 +1,4 @@
-package com.margelo.nitro.turbosse
+package com.margelo.nitro.fastsse
   
 import com.facebook.proguard.annotations.DoNotStrip
 import okhttp3.OkHttpClient
@@ -11,7 +11,7 @@ import okhttp3.sse.EventSources
 import java.util.concurrent.TimeUnit
 
 @DoNotStrip
-class TurboSse : HybridTurboSseSpec() {
+class FastSse : HybridFastSseSpec() {
   private val client = OkHttpClient.Builder()
     .readTimeout(0, TimeUnit.MILLISECONDS) // Important for SSE to not timeout
     .build()

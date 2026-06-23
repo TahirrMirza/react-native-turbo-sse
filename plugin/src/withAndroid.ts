@@ -1,6 +1,6 @@
 import { type ConfigPlugin, withGradleProperties } from '@expo/config-plugins';
 
-export const withTurboSseAndroid: ConfigPlugin = (config) => {
+export const withFastSseAndroid: ConfigPlugin = (config) => {
   // Ensure New Architecture is enabled (required for NitroModules)
   return withGradleProperties(config, (c) => {
     const props = c.modResults;

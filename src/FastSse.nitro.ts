@@ -1,6 +1,6 @@
 import type { HybridObject } from 'react-native-nitro-modules';
 
-export interface TurboSse extends HybridObject<{
+export interface FastSse extends HybridObject<{
   ios: 'swift';
   android: 'kotlin';
 }> {

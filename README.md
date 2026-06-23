@@ -1,7 +1,7 @@
-# react-native-turbo-sse
+# react-native-fast-sse
 
-[![npm version](https://img.shields.io/npm/v/react-native-turbo-sse.svg?style=flat-square)](https://www.npmjs.com/package/react-native-turbo-sse)
-[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey.svg?style=flat-square)](https://github.com/TahirrMirza/react-native-turbo-sse)
+[![npm version](https://img.shields.io/npm/v/react-native-fast-sse.svg?style=flat-square)](https://www.npmjs.com/package/react-native-fast-sse)
+[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey.svg?style=flat-square)](https://github.com/TahirrMirza/react-native-fast-sse)
 [![New Architecture](https://img.shields.io/badge/New%20Architecture-required-blue.svg?style=flat-square)](https://reactnative.dev/docs/new-architecture-intro)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
@@ -22,7 +22,7 @@ A blazing fast, production-ready **Server-Sent Events (SSE)** and **EventSource*
 
 Traditional React Native SSE libraries run entirely in JavaScript and wrap `XMLHttpRequest`. This causes the native network layer to buffer incoming chunks. If you are building an AI chat interface (OpenAI, Anthropic, Gemini), tokens will arrive in delayed, massive chunks instead of a smooth, typing effect.
 
-`react-native-turbo-sse` uses Nitro Modules and JSI to pipe raw native bytecode (`OkHttp` on Android / `NSURLSession` on iOS) directly to the JavaScript runtime with **zero buffering and sub-millisecond latency**.
+`react-native-fast-sse` uses Nitro Modules and JSI to pipe raw native bytecode (`OkHttp` on Android / `NSURLSession` on iOS) directly to the JavaScript runtime with **zero buffering and sub-millisecond latency**.
 
 ## Features
 
@@ -42,7 +42,7 @@ Traditional React Native SSE libraries run entirely in JavaScript and wrap `XMLH
 If you are using Expo, install the package and its native dependencies:
 
 ```bash
-npx expo install react-native-turbo-sse react-native-nitro-modules
+npx expo install react-native-fast-sse react-native-nitro-modules
 ```
 
 Since this library uses native code, you will need to prebuild your app or run it in an Expo Development Client:
@@ -59,7 +59,7 @@ _(Note: The Expo config plugin handles all iOS background modes, New Architectur
 ### For Bare React Native CLI
 
 ```bash
-yarn add react-native-turbo-sse react-native-nitro-modules
+yarn add react-native-fast-sse react-native-nitro-modules
 ```
 
 Install the iOS Pods:
@@ -74,13 +74,13 @@ cd ios && pod install
 
 ### The React Hook (Recommended)
 
-The easiest way to consume a stream in your React components is to use the `useTurboSSE` hook. It automatically handles the connection lifecycle, parses the stream, and provides a simple state object.
+The easiest way to consume a stream in your React components is to use the `useFastSSE` hook. It automatically handles the connection lifecycle, parses the stream, and provides a simple state object.
 
 ```tsx
-import { useTurboSSE, ReadyState } from 'react-native-turbo-sse';
+import { useFastSSE, ReadyState } from 'react-native-fast-sse';
 
 export default function App() {
-  const { data, status, error, connect, disconnect } = useTurboSSE('https://api.openai.com/v1/chat/completions', {
+  const { data, status, error, connect, disconnect } = useFastSSE('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Authorization': 'Bearer YOUR_OPENAI_TOKEN',
@@ -110,7 +110,7 @@ export default function App() {
 If you need more manual control or are working outside of React components, you can instantiate the `TurboEventSource` class directly. It mirrors the standard web `EventSource` API with support for multiple event listeners.
 
 ```typescript
-import { TurboEventSource } from 'react-native-turbo-sse';
+import { TurboEventSource } from 'react-native-fast-sse';
 
 // 1. Create a new connection
 const source = new TurboEventSource(

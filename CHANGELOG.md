@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `useTurboSSE` React hook for easy stream consumption and lifecycle management.
+- `useFastSSE` React hook for easy stream consumption and lifecycle management.
 - `ReadyState` enum exported for strict type checking of connection states.
 - `.addEventListener`, `.removeEventListener`, and `.removeAllEventListeners` API to `TurboEventSource` supporting multiple listeners per stream.
-- `debug?: boolean` flag in `TurboSSEOptions` to toggle verbose console logging.
+- `debug?: boolean` flag in `FastSSEOptions` to toggle verbose console logging.
 
 ### Fixed
 

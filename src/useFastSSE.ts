@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { TurboEventSource } from './TurboEventSource';
-import { ReadyState, type TurboSSEOptions, type SSEEvent } from './types';
+import { ReadyState, type FastSSEOptions, type SSEEvent } from './types';
 
-export function useTurboSSE(url: string, options?: TurboSSEOptions) {
+export function useFastSSE(url: string, options?: FastSSEOptions) {
   const [data, setData] = useState<SSEEvent | null>(null);
   const [status, setStatus] = useState<ReadyState>(ReadyState.CLOSED);
   const [error, setError] = useState<Error | null>(null);

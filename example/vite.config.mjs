@@ -9,7 +9,7 @@ export default defineConfig((env) =>
       alias: {
         [pack.name]: new URL('..', import.meta.url),
       },
-      conditions: ['react-native-turbo-sse-source'],
+      conditions: ['react-native-fast-sse-source'],
       dedupe: Object.keys(pack.peerDependencies),
     },
   })

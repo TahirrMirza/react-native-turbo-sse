@@ -1,11 +1,11 @@
-package com.margelo.nitro.turbosse
+package com.margelo.nitro.fastsse
 
 import com.facebook.react.BaseReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfoProvider
 
-class TurboSsePackage : BaseReactPackage() {
+class FastSsePackage : BaseReactPackage() {
     override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
         return null
     }
@@ -16,7 +16,7 @@ class TurboSsePackage : BaseReactPackage() {
 
     companion object {
         init {
-            System.loadLibrary("turbosse")
+            System.loadLibrary("fastsse")
         }
     }
 }

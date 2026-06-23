@@ -1,3 +1,3 @@
 export * from './TurboEventSource';
-export * from './useTurboSSE';
+export * from './useFastSSE';
 export * from './types';

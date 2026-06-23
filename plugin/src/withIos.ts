@@ -4,7 +4,7 @@ import {
   withPodfileProperties,
 } from '@expo/config-plugins';
 
-export const withTurboSseIos: ConfigPlugin = (config) => {
+export const withFastSseIos: ConfigPlugin = (config) => {
   // 1. Add UIBackgroundModes: fetch for NSURLSession background streaming
   config = withInfoPlist(config, (c) => {
     if (!c.modResults.UIBackgroundModes) {

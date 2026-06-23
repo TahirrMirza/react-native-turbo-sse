@@ -13,7 +13,7 @@ const root = path.resolve(__dirname, '..');
 const config = withMetroConfig(getDefaultConfig(__dirname), {
   root,
   dirname: __dirname,
-  conditions: ['react-native-turbo-sse-source'],
+  conditions: ['react-native-fast-sse-source'],
 });
 
 module.exports = config;

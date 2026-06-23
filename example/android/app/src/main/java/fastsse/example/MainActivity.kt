@@ -1,4 +1,4 @@
-package turbosse.example
+package fastsse.example
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

@@ -1,11 +1,11 @@
 import { NitroModules } from 'react-native-nitro-modules';
-import type { TurboSse } from './TurboSse.nitro';
-import { ReadyState, type TurboSSEOptions, type SSEEvent } from './types';
+import type { FastSse } from './FastSse.nitro';
+import { ReadyState, type FastSSEOptions, type SSEEvent } from './types';
 
 export class TurboEventSource {
-  private _native: TurboSse;
+  private _native: FastSse;
   private _url: string;
-  private _options: TurboSSEOptions;
+  private _options: FastSSEOptions;
 
   private _lastEventId: string = '';
   private _userClosed = false;
@@ -25,21 +25,21 @@ export class TurboEventSource {
   private _onMessageCallback?: (event: SSEEvent) => void;
   private _onErrorCallback?: (err: Error) => void;
 
-  constructor(url: string, options?: TurboSSEOptions) {
+  constructor(url: string, options?: FastSSEOptions) {
     this._url = url;
     this._options = options || {};
-    this._native = NitroModules.createHybridObject<TurboSse>('TurboSse');
+    this._native = NitroModules.createHybridObject<FastSse>('FastSse');
   }
 
   private _log(...args: unknown[]): void {
     if (this._options.debug) {
-      console.log('[TurboSSE]', ...args);
+      console.log('[FastSSE]', ...args);
     }
   }
 
   private _error(...args: unknown[]): void {
     if (this._options.debug) {
-      console.error('[TurboSSE]', ...args);
+      console.error('[FastSSE]', ...args);
     }
   }
 

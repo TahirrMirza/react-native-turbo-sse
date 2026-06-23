@@ -1,12 +1,12 @@
 {
-  "name": "react-native-turbo-sse",
+  "name": "react-native-fast-sse",
   "version": "0.3.0",
   "description": "High-performance, zero-buffering native Server-Sent Events (SSE) client for React Native New Architecture using Nitro Modules. Perfect for OpenAI, ChatGPT, and Gemini token streaming.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
     ".": {
-      "react-native-turbo-sse-source": "./src/index.tsx",
+      "react-native-fast-sse-source": "./src/index.tsx",
       "types": "./lib/typescript/src/index.d.ts",
       "default": "./lib/module/index.js"
     },
@@ -38,7 +38,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-turbo-sse-example",
+    "example": "yarn workspace react-native-fast-sse-example",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build",
     "nitrogen": "nitrogen",
@@ -57,7 +57,7 @@
     "server-sent-events",
     "nitro-modules",
     "jsi",
-    "turbomodule",
+    "nitro-module",
     "react-native-new-architecture",
     "fabric",
     "openai-stream",
@@ -80,14 +80,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TahirrMirza/react-native-turbo-sse.git"
+    "url": "git+https://github.com/TahirrMirza/react-native-fast-sse.git"
   },
   "author": "tahirmirza <tahirmirza657@gmail.com> (https://github.com/TahirrMirza)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TahirrMirza/react-native-turbo-sse/issues"
+    "url": "https://github.com/TahirrMirza/react-native-fast-sse/issues"
   },
-  "homepage": "https://github.com/TahirrMirza/react-native-turbo-sse#readme",
+  "homepage": "https://github.com/TahirrMirza/react-native-fast-sse#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

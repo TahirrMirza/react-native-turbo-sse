@@ -1,21 +1,21 @@
 {
-  "cxxNamespace": ["turbosse"],
+  "cxxNamespace": ["fastsse"],
   "ios": {
-    "iosModuleName": "TurboSse"
+    "iosModuleName": "FastSse"
   },
   "android": {
-    "androidNamespace": ["turbosse"],
-    "androidCxxLibName": "turbosse"
+    "androidNamespace": ["fastsse"],
+    "androidCxxLibName": "fastsse"
   },
   "autolinking": {
-    "TurboSse": {
+    "FastSse": {
       "ios": {
         "language": "swift",
-        "implementationClassName": "TurboSse"
+        "implementationClassName": "FastSse"
       },
       "android": {
         "language": "kotlin",
-        "implementationClassName": "TurboSse"
+        "implementationClassName": "FastSse"
       }
     }
   },

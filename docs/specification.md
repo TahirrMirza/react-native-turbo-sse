@@ -1,7 +1,7 @@
-# react-native-turbo-sse — Project Specification
+# react-native-fast-sse — Project Specification
 
 > **Status:** Active — in planning  
-> **Source:** Converted from `react-native-turbo-sse-specification.pdf`  
+> **Source:** Converted from `react-native-fast-sse-specification.pdf`  
 > **Last updated:** 2026-06-17
 
 ---
@@ -32,7 +32,7 @@ Current market solutions for SSE in React Native (e.g. `react-native-sse`) are w
 
 ### The Solution
 
-`react-native-turbo-sse` delegates connection management **entirely to native networking frameworks** (OkHttp on Android, NSURLSession on iOS), pumping data fragments **synchronously** into the JavaScript runtime via **C++ JSI hooks** (exposed through [NitroModules](https://github.com/mrousavy/nitro)), guaranteeing:
+`react-native-fast-sse` delegates connection management **entirely to native networking frameworks** (OkHttp on Android, NSURLSession on iOS), pumping data fragments **synchronously** into the JavaScript runtime via **C++ JSI hooks** (exposed through [NitroModules](https://github.com/mrousavy/nitro)), guaranteeing:
 
 - **Zero-buffer** event delivery
 - **Sub-millisecond** dispatch latency
@@ -73,7 +73,7 @@ dependencies {
 Implement the `EventSourceListener` interface to handle all SSE lifecycle events natively:
 
 ```kotlin
-class TurboSseListener(private val jsCallback: (type: String, id: String?, data: String) -> Unit)
+class FastSseListener(private val jsCallback: (type: String, id: String?, data: String) -> Unit)
     : EventSourceListener() {
 
     override fun onOpen(eventSource: EventSource, response: Response) {
@@ -121,7 +121,7 @@ let session = URLSession(configuration: config, delegate: self, delegateQueue: n
 #### Delegate Implementation
 
 ```swift
-extension TurboSse: URLSessionDataDelegate {
+extension FastSse: URLSessionDataDelegate {
 
     func urlSession(
         _ session: URLSession,
@@ -190,7 +190,7 @@ export interface SSEEvent {
   data: string;
 }
 
-export interface TurboSSEOptions {
+export interface FastSSEOptions {
   method?: 'GET' | 'POST';
   headers?: Record<string, string>;
   body?: string;                       // required for POST (e.g. OpenAI chat/completions)
@@ -202,7 +202,7 @@ export interface TurboSSEOptions {
 
 ```typescript
 export class TurboEventSource {
-  constructor(url: string, options?: TurboSSEOptions);
+  constructor(url: string, options?: FastSSEOptions);
 
   onOpen(callback: () => void): void;
   onMessage(callback: (event: SSEEvent) => void): void;
@@ -213,12 +213,12 @@ export class TurboEventSource {
 }
 ```
 
-### NitroModules Nitro Schema (`src/TurboSse.nitro.ts`)
+### NitroModules Nitro Schema (`src/FastSse.nitro.ts`)
 
 ```typescript
 import type { HybridObject } from 'react-native-nitro-modules';
 
-export interface TurboSse extends HybridObject<{
+export interface FastSse extends HybridObject<{
   ios: 'swift';
   android: 'kotlin';
 }> {
@@ -250,7 +250,7 @@ export interface TurboSse extends HybridObject<{
 
 ### Why a Config Plugin is Needed
 
-`react-native-turbo-sse` is a native module — it requires modifications to the host app's native project that Expo Managed Workflow cannot perform automatically. Without a config plugin, Expo users must:
+`react-native-fast-sse` is a native module — it requires modifications to the host app's native project that Expo Managed Workflow cannot perform automatically. Without a config plugin, Expo users must:
 
 - Manually run `npx expo prebuild` and edit `Info.plist` (iOS background modes)
 - Manually confirm New Architecture is enabled
@@ -269,7 +269,7 @@ The config plugin eliminates all of this via `npx expo prebuild`.
 ### Plugin File Structure
 
 ```
-react-native-turbo-sse/
+react-native-fast-sse/
 ├── plugin/
 │   ├── src/
 │   │   ├── index.ts          ← main plugin entry (TypeScript source)
@@ -284,17 +284,17 @@ react-native-turbo-sse/
 
 ```typescript
 import { ConfigPlugin, withPlugins } from '@expo/config-plugins';
-import { withTurboSseIos } from './withIos';
-import { withTurboSseAndroid } from './withAndroid';
+import { withFastSseIos } from './withIos';
+import { withFastSseAndroid } from './withAndroid';
 
-const withTurboSse: ConfigPlugin = (config) => {
+const withFastSse: ConfigPlugin = (config) => {
   return withPlugins(config, [
-    withTurboSseIos,
-    withTurboSseAndroid,
+    withFastSseIos,
+    withFastSseAndroid,
   ]);
 };
 
-export default withTurboSse;
+export default withFastSse;
 ```
 
 ### iOS Plugin (`plugin/src/withIos.ts`)
@@ -302,7 +302,7 @@ export default withTurboSse;
 ```typescript
 import { ConfigPlugin, withInfoPlist, withPodfileProperties } from '@expo/config-plugins';
 
-export const withTurboSseIos: ConfigPlugin = (config) => {
+export const withFastSseIos: ConfigPlugin = (config) => {
   // 1. Add UIBackgroundModes: fetch for NSURLSession background streaming
   config = withInfoPlist(config, (c) => {
     if (!c.modResults.UIBackgroundModes) {
@@ -332,7 +332,7 @@ export const withTurboSseIos: ConfigPlugin = (config) => {
 ```typescript
 import { ConfigPlugin, withGradleProperties } from '@expo/config-plugins';
 
-export const withTurboSseAndroid: ConfigPlugin = (config) => {
+export const withFastSseAndroid: ConfigPlugin = (config) => {
   // Ensure New Architecture is enabled (required for NitroModules)
   return withGradleProperties(config, (c) => {
     const props = c.modResults;
@@ -355,14 +355,14 @@ After the plugin is published, Expo users simply:
 
 ```bash
 # Install the package
-npx expo install react-native-turbo-sse react-native-nitro-modules
+npx expo install react-native-fast-sse react-native-nitro-modules
 ```
 
 ```json
 // app.json
 {
   "expo": {
-    "plugins": ["react-native-turbo-sse"]
+    "plugins": ["react-native-fast-sse"]
   }
 }
 ```
@@ -400,13 +400,13 @@ Execute in this exact order to avoid circular dependencies:
 
 | Step | Task | Notes |
 |---|---|---|
-| **1** | **Nitro Schema Definition** | Define `TurboSse.nitro.ts` with the full method surface (see Section 4). Run `npx nitro-codegen` to generate C++ host objects. |
-| **2** | **C++ JSI Registration** | The generated `HybridTurboSseSpec` C++ class binds native callbacks to JS functions without going through `RCTDeviceEventEmitter`. No manual JSI setup needed — Nitro handles registration. |
-| **3** | **Android Kotlin Implementation** | Implement `TurboSse.kt` extending `HybridTurboSseSpec`. Wire `EventSourceListener` callbacks to the JSI `std::function` parameters received from JS. |
-| **4** | **iOS Swift Implementation** | Implement `TurboSse.swift` extending `HybridTurboSseSpec`. Wire `URLSessionDataDelegate` callbacks to JSI function parameters. |
+| **1** | **Nitro Schema Definition** | Define `FastSse.nitro.ts` with the full method surface (see Section 4). Run `npx nitro-codegen` to generate C++ host objects. |
+| **2** | **C++ JSI Registration** | The generated `HybridFastSseSpec` C++ class binds native callbacks to JS functions without going through `RCTDeviceEventEmitter`. No manual JSI setup needed — Nitro handles registration. |
+| **3** | **Android Kotlin Implementation** | Implement `FastSse.kt` extending `HybridFastSseSpec`. Wire `EventSourceListener` callbacks to the JSI `std::function` parameters received from JS. |
+| **4** | **iOS Swift Implementation** | Implement `FastSse.swift` extending `HybridFastSseSpec`. Wire `URLSessionDataDelegate` callbacks to JSI function parameters. |
 | **5** | **Payload Trimming** | Ensure native string streams trim `\r\n` **before** piping into the runtime to conform with the [SSE specification (WHATWG)](https://html.spec.whatwg.org/multipage/server-sent-events.html). |
 | **6** | **JS Wrapper Class** | Build the `TurboEventSource` class (Section 4) that wraps the raw Nitro hybrid object with a clean EventSource-like API. |
-| **7** | **TypeScript Exports** | Update `src/index.tsx` to export `TurboEventSource`, `TurboSSEOptions`, `SSEEvent`. |
+| **7** | **TypeScript Exports** | Update `src/index.tsx` to export `TurboEventSource`, `FastSSEOptions`, `SSEEvent`. |
 | **8** | **Expo Config Plugin** | Build plugin under `plugin/src/`, compile to `plugin/build/`, wire into `package.json` `expo.plugin` field. |
 | **9** | **Example App** | Wire up a demo in `example/` that streams from an OpenAI-compatible endpoint and renders tokens in real-time. |
 
@@ -446,4 +446,4 @@ The original spec describes manually wiring JSI C++ hooks. The scaffold already 
 - No manual `jsi::Runtime` access or `RCTDeviceEventEmitter` needed
 - The `nitro.json` config drives autolinking for both platforms
 
-This means Steps 1–2 of the implementation order above are handled almost entirely by running `npx nitro-codegen` after updating `TurboSse.nitro.ts`.
+This means Steps 1–2 of the implementation order above are handled almost entirely by running `npx nitro-codegen` after updating `FastSse.nitro.ts`.

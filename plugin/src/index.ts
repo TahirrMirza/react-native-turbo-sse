@@ -1,9 +1,9 @@
 import { type ConfigPlugin, withPlugins } from '@expo/config-plugins';
-import { withTurboSseIos } from './withIos';
-import { withTurboSseAndroid } from './withAndroid';
+import { withFastSseIos } from './withIos';
+import { withFastSseAndroid } from './withAndroid';
 
-const withTurboSse: ConfigPlugin = (config) => {
-  return withPlugins(config, [withTurboSseIos, withTurboSseAndroid]);
+const withFastSse: ConfigPlugin = (config) => {
+  return withPlugins(config, [withFastSseIos, withFastSseAndroid]);
 };
 
-export default withTurboSse;
+export default withFastSse;
