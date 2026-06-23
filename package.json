@@ -1,6 +1,6 @@
 {
   "name": "react-native-fast-sse",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "High-performance, zero-buffering native Server-Sent Events (SSE) client for React Native New Architecture using Nitro Modules. Perfect for OpenAI, ChatGPT, and Gemini token streaming.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
